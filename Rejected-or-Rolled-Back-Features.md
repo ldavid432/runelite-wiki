@@ -86,3 +86,4 @@ These may cause your plugin to need some additional review whenever you add / mo
 We recommend you don't use these APIs at all and the use of them will require your plugin to be manually reviewed.
 
 * `Client.hopToWorld`
+* `Client.runScript`
