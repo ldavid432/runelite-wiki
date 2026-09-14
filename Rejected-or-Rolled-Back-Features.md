@@ -50,7 +50,7 @@ Alternative JVM languages such as Kotlin and Scala are not allowed. All plugins 
 For security, stability and reviewability reasons, hub plugins are forbidden from using the following language features, functions or patterns:
 
 * [Java reflection](https://www.oracle.com/technical-resources/articles/java/javareflection.html)
-* [JNI](https://en.wikipedia.org/wiki/Java_Native_Interface) or JNA
+* [JNI](https://en.wikipedia.org/wiki/Java_Native_Interface) and JNA
 * Execution of external programs (e.g. subprocesses) via any means
 * Downloading or otherwise vendoring external source code at runtime
 
@@ -64,13 +64,13 @@ For security, stability and reviewability reasons, hub plugins are forbidden fro
 
 * **Forbidden patterns:**
     * Creating your own instance of `Gson`
-        * Instead, inject the clients and use `.newBuilder()` to customize it
+        * Instead, inject the client's instance and, if needed, use `.newBuilder()` to customize it
     * Creating your own instance of `OkHttp`
-        * Instead, inject the clients
+        * Instead, inject the client's instance
     * Using `net.runelite` as your package
     * Use of any network client other than `OkHttp` (i.e. `HttpURLConnection`, `java.net.http.HttpClient`)
 
-Not following the above requirements will prevent us from being able to fully review the source code and therefore the behavior of your plugin.
+Violating the above requirements will prevent us from being able to fully review the source code and therefore the behavior of your plugin.
 
 This list is not necessarily exhaustive. **As a rule of thumb, if we cannot review every single line of source code that your plugin will execute, we will not accept it.**
 
