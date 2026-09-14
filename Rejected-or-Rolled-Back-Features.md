@@ -47,12 +47,42 @@ Jagex has requested removal of certain features, and current discussion of featu
 
 Alternative JVM languages such as Kotlin and Scala are not allowed. All plugins **MUST** be written in Java. We do not wish to burden plugin hub reviewers with additional languages, and our build / CI tooling only works with Java.
 
-For security and reviewability reasons, hub plugins are forbidden from using the following in-code behaviors:
+For security, stability and reviewability reasons, hub plugins are forbidden from using the following language features, functions or patterns:
+
 * [Java reflection](https://www.oracle.com/technical-resources/articles/java/javareflection.html)
-* [JNI](https://en.wikipedia.org/wiki/Java_Native_Interface)
+* [JNI](https://en.wikipedia.org/wiki/Java_Native_Interface) or JNA
 * Execution of external programs (e.g. subprocesses) via any means
 * Downloading or otherwise vendoring external source code at runtime
 
-These technologies prevent us from being able to fully review the source code and therefore the behavior of your plugin.
+* **Forbidden function calls:**
+    * `Desktop.open` or `LinkBrowser.open`
+    * `Desktop.browse`
+        * However, `LinkBrowser.browse` is allowed
+    * `Thread.interrupt` or `Thread.sleep`
+    * `Client.menuAction`
+      * Except for the 1 exception mentioned below
+
+* **Forbidden patterns:**
+    * Creating your own instance of `Gson`
+        * Instead, inject the clients and use `.newBuilder()` to customize it
+    * Creating your own instance of `OkHttp`
+        * Instead, inject the clients
+    * Using `net.runelite` as your package
+    * Use of any network client other than `OkHttp` (i.e. `HttpURLConnection`, `java.net.http.HttpClient`)
+
+Not following the above requirements will prevent us from being able to fully review the source code and therefore the behavior of your plugin.
 
 This list is not necessarily exhaustive. **As a rule of thumb, if we cannot review every single line of source code that your plugin will execute, we will not accept it.**
+
+#### Sensitive APIs
+These may cause your plugin to need some additional review whenever you add / modify code related them but are allowed.
+
+* Network IO
+* File IO
+* `Client.menuAction`
+    * There is currently only 1 acceptable use case for this function - fetching collection log data
+
+#### Extra-sensitive APIs
+We recommend you don't use these APIs at all and the use of them will require your plugin to be manually reviewed.
+
+* `Client.hopToWorld`
