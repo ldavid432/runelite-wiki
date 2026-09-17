@@ -70,8 +70,8 @@ For security, stability and reviewability reasons, hub plugins are forbidden fro
       * Instead, inject the client's instance
   * Using `net.runelite` as your package
   * Use of any network client other than `OkHttp` (i.e. `HttpURLConnection`, `java.net.http.HttpClient`)
-  * `java.io` file APIs
-      * Use `net.runelite.client.util.Filepath` instead
+  * Use of `java.io` file APIs
+      * Instead, use `net.runelite.client.util.Filepath`
 
 Violating the above requirements will prevent us from being able to fully review the source code and therefore the behavior of your plugin.
 
