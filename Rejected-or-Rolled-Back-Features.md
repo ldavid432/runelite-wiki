@@ -55,22 +55,23 @@ For security, stability and reviewability reasons, hub plugins are forbidden fro
 * Downloading or otherwise vendoring external source code at runtime
 
 * **Forbidden function calls:**
-    * `Desktop.open` or `LinkBrowser.open`
-    * `Desktop.browse`
-        * However, `LinkBrowser.browse` is allowed
-    * `Thread.interrupt` or `Thread.sleep`
-    * `Client.menuAction`
-      * Except for the 1 exception mentioned below
-    * `java.io` file APIs
-      * Use `net.runelite.client.util.Filepath` instead
+  * `Desktop.open` or `LinkBrowser.open`
+  * `Desktop.browse`
+      * However, `LinkBrowser.browse` is allowed
+  * `Thread.interrupt` or `Thread.sleep`
+  * `Client.menuAction`
+    * Except for the 1 exception mentioned below
+
 
 * **Forbidden patterns:**
-    * Creating your own instance of `Gson`
-        * Instead, inject the client's instance and, if needed, use `.newBuilder()` to customize it
-    * Creating your own instance of `OkHttp`
-        * Instead, inject the client's instance
-    * Using `net.runelite` as your package
-    * Use of any network client other than `OkHttp` (i.e. `HttpURLConnection`, `java.net.http.HttpClient`)
+  * Creating your own instance of `Gson`
+      * Instead, inject the client's instance and, if needed, use `.newBuilder()` to customize it
+  * Creating your own instance of `OkHttp`
+      * Instead, inject the client's instance
+  * Using `net.runelite` as your package
+  * Use of any network client other than `OkHttp` (i.e. `HttpURLConnection`, `java.net.http.HttpClient`)
+  * `java.io` file APIs
+      * Use `net.runelite.client.util.Filepath` instead
 
 Violating the above requirements will prevent us from being able to fully review the source code and therefore the behavior of your plugin.
 
