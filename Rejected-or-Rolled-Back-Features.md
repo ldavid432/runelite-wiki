@@ -79,6 +79,7 @@ These may cause your plugin to need some additional review whenever you add / mo
 
 * Network IO
 * File IO
+  * `net.runelite.client.util.Filepath` acts as a safe replacement for `java.io` file APIs and is not classified as sensitive
 * `Client.menuAction`
     * There is currently only 1 acceptable use case for this function - fetching collection log data: `client.menuAction(-1, InterfaceID.Collection.SEARCH_TOGGLE, MenuAction.CC_OP, 1, -1, "Search", null)`
 
