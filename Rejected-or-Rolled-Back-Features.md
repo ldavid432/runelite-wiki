@@ -61,6 +61,8 @@ For security, stability and reviewability reasons, hub plugins are forbidden fro
     * `Thread.interrupt` or `Thread.sleep`
     * `Client.menuAction`
       * Except for the 1 exception mentioned below
+    * `java.io` file APIs
+      * Use `net.runelite.client.util.Filepath` instead
 
 * **Forbidden patterns:**
     * Creating your own instance of `Gson`
@@ -78,13 +80,12 @@ This list is not necessarily exhaustive. **As a rule of thumb, if we cannot revi
 These may cause your plugin to need some additional review whenever you add / modify code related them but are allowed.
 
 * Network IO
-* File IO
-  * `net.runelite.client.util.Filepath` acts as a safe replacement for `java.io` file APIs and is not classified as sensitive
 * `Client.menuAction`
     * There is currently only 1 acceptable use case for this function - fetching collection log data: `client.menuAction(-1, InterfaceID.Collection.SEARCH_TOGGLE, MenuAction.CC_OP, 1, -1, "Search", null)`
+* `Client.runScript`
+  * Any scripts that send server actions will not be allowed
 
 #### Extra-sensitive APIs
 We recommend you don't use these APIs at all and the use of them will require your plugin to be manually reviewed.
 
 * `Client.hopToWorld`
-* `Client.runScript`
